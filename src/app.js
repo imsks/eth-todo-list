@@ -62,7 +62,7 @@ App = {
         const taskCount = await App.todoList.taskCount()
         const $taskTemplate = $('.taskTemplate')
 
-        console.log(taskCount)
+        // console.log(taskCount)
 
         for (var i = 1; i <= taskCount; i++) {
             // Fetch the task data from the blockchain
@@ -108,6 +108,18 @@ App = {
 
         // Update loading state
         App.setLoading(false)
+    },
+
+    createTask: async () => {
+        App.setLoading(true)
+        const content = $('#newTask').val()
+        try {
+            await App.todoList.createTask(content, { from: App.account })
+            window.location.reload()
+        } catch (error) {
+            console.log(error)
+        }
+
     },
 
     setLoading: (boolean) => {
